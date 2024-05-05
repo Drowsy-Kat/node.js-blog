@@ -19,13 +19,13 @@ router.post('/', async (req, res) => {
     markdown: req.body.markdown,
 
   })
-try{
-  article = await article.save()
-  res.redirect(`/articles/${article.slug}`)
-}catch (e){
-  console.log(e)
-  res.render('articles/new', {article: article})
-}
+  try{
+    article = await article.save()
+    res.redirect(`/articles/${article.slug}`)
+  }catch (e){
+    console.log(e)
+    res.render('articles/new', {article: article})
+  }
 })
 
 router.delete('/:id', async (req, res) =>{
