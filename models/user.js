@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
 
 const userSchema = new mongoose.Schema({
   name:{
@@ -13,6 +14,17 @@ const userSchema = new mongoose.Schema({
   password:{
     type: String,
     required: true
+  }
+})
+
+
+userSchema.pre('validate', async function(next){
+  if (this.password){
+    try {
+      this.password = await bcrypt.hash(this.password, 10)
+    } catch (error) {
+      console.log(error)
+    }
   }
 })
 
