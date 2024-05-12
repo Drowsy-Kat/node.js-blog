@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 
+// creates a mongoDB table for users
 const userSchema = new mongoose.Schema({
   name:{
     type: String,
@@ -18,6 +19,7 @@ const userSchema = new mongoose.Schema({
 })
 
 
+// emcrypts the users password
 userSchema.pre('validate', async function(next){
   if (this.password){
     try {

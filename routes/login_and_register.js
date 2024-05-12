@@ -3,14 +3,19 @@ const User = require('./../models/user')
 const passport = require('passport')
 const router = express.Router()
 
+
+//route to show login page
 router.get('/login', (req, res) => {
   res.render('login.ejs')
 })
 
+//route to show register page
 router.get('/register', (req, res) => {
   res.render('register.ejs')
 })
 
+
+//route to register a user
 router.post('/register', async (req, res) => {
   let user = new User({
     name: req.body.name,
@@ -29,6 +34,8 @@ router.post('/register', async (req, res) => {
 
 })
 
+
+//route to authenticate a user and redirect to the correct page
 router.post('/login', passport.authenticate('local',{
   successRedirect: '/',
   failureRedirect: '/login_and_register/login',

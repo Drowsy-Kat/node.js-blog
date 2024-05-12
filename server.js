@@ -18,16 +18,17 @@ const initializePassport = require('./passport-config')
 
 
 
-
+//connects to the database
 mongoose.connect('mongodb://127.0.0.1:27017/blog')
 
 
+//innitialises passport for authentication
 initializePassport(
   passport,
   async email => {return await User.findOne({ email: email})},
   async _id =>  {return await User.findOne({ _id: _id})}
   
-  )
+)
 
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false}))
@@ -45,10 +46,10 @@ app.use(passport.session())
 
 
 
-
+//returns the home page
 app.get('/', async (req, res) => {
   const articles = await Article.find().sort({ createdAt: 'desc'})
-  res.render('articles/index', {articles: articles, name: req.user.name})
+  res.render('articles/index', {articles: articles})
 })
 
 
